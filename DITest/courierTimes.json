@@ -1,0 +1,19 @@
+{
+    "times": [
+        {
+            "day": 1,
+            "start_time": 8,
+            "end_time": 20
+        },
+        {
+            "day": 2,
+            "start_time": 8,
+            "end_time": 20
+        },
+        {
+            "day": 3,
+            "start_time": 8,
+            "end_time": 20
+        }
+    ]
+}
