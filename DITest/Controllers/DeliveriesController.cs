@@ -1,8 +1,8 @@
 ﻿using DITest.Data;
 using DITest.Models;
+using DITest.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace DITest.Controllers
 {
@@ -12,11 +12,19 @@ namespace DITest.Controllers
     {
         private readonly DeliveryDbContext _deliveryContext;
         private readonly TimeslotDbContext _timeslotContext;
+        private readonly IHolidayApiService _holidayApiService;
+        private readonly ICourierReaderService _courierReaderService;
 
-        public DeliveriesController(DeliveryDbContext deliverycontext, TimeslotDbContext timeslotContext)
+        public DeliveriesController(DeliveryDbContext deliverycontext,
+            TimeslotDbContext timeslotContext,
+            IHolidayApiService holidayApiService,
+            ICourierReaderService courierReaderService
+            )
         {
             _deliveryContext = deliverycontext;
             _timeslotContext = timeslotContext;
+            _holidayApiService = holidayApiService;
+            _courierReaderService = courierReaderService;
         }
 
         [HttpPost]
@@ -24,7 +32,6 @@ namespace DITest.Controllers
         [ProducesResponseType(statusCode: 404)]
         public async Task<IActionResult> BookDelivery(BookDelivery bd)
         {
-            var a = bd;
             var ts = await _timeslotContext.Timeslot.FindAsync(bd.timeslotId);
             if (ts == null)
             {
@@ -34,7 +41,7 @@ namespace DITest.Controllers
             }
             else
             {
-                if(ts.delivery_1 == null)
+                if (ts.delivery_1 == null)
                 {
                     var new_Delivery = new Delivery();
                     new_Delivery.user = bd.user;
@@ -43,7 +50,7 @@ namespace DITest.Controllers
                     await _deliveryContext.AddAsync(new_Delivery);
                     await _deliveryContext.SaveChangesAsync();
 
-                    _timeslotContext.Entry(ts).State= EntityState.Modified;
+                    _timeslotContext.Entry(ts).State = EntityState.Modified;
                     await _timeslotContext.SaveChangesAsync();
                     return NoContent();
                 }

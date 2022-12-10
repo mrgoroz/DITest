@@ -1,4 +1,5 @@
 using DITest.Data;
+using DITest.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,9 @@ builder.Services.AddDbContext<DeliveryDbContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("sqlServer"))
     );
 
+builder.Services.AddHttpClient<IHolidayApiService, HolidayApiService>(o => o.BaseAddress = new Uri("https://holidayapi.com/v1/"));
+builder.Services.AddSingleton<ICourierReaderService, CourierReaderService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,3 +44,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
