@@ -1,7 +1,7 @@
 # DITest
 ![alt text](https://github.com/mrgoroz/DITest/blob/master/DITest/diTestSwagger.jpg)
 <br /> <br /> 
-This project contains: <br /> 
+This .NET Core project contains: <br /> 
 Db connection via the Entity framework <br /> 
 Db migration <br /> 
 Dependency injection <br /> 
