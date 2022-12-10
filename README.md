@@ -1,2 +1,2 @@
 # DITest
-![Screenshot](diTestSwagger.jpg)
+![alt text](https://github.com/mrgoroz/DITest/blob/master/DITest/diTestSwagger.jpg)
