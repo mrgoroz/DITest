@@ -2,7 +2,7 @@
 {
     public class Delivery
     {
-        public int id { get; set; }
+        public Guid id { get; set; }
         public Status status { get; set; }
         public User user { get; set; }
     }
